@@ -51,7 +51,22 @@ Pour celui-ci, j'ai fait :
  
 code : 
 
+
 ```
+git branch nouvelle_branche
+git add -p
+git commit -m ""
+git push
+git checkout main
+```
+
+
+```
+
+thomas@fedora:~/Qdev/QDev-R4.02$ git branch
+  main
+* nouvelle_branche
+
 thomas@fedora:~/Qdev/QDev-R4.02/PrivateBin/lib$ git status
 Sur la branche nouvelle_branche
 Modifications qui ne seront pas validées :
