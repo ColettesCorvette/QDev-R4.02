@@ -49,6 +49,8 @@ Pour celui-ci, j'ai fait :
  - modification du fichier Configuration.php
  - git add -p
  
+ Lorsqu'on change de branche, le working direcory se remet au niveau de la branche d'avant, donc les modifications effectuées ne sont plus présentes.
+ 
 code : 
 
 
