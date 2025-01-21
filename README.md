@@ -45,5 +45,25 @@ php -S localhost:8080
 Mes Manipulations :
 
 Pour celui-ci, j'ai fait :
- - c'est reparti
- - pour un tour
+ - créer une nouvelle branche nommée nouvelle_branche
+ - modification du fichier Configuration.php
+ -
+ 
+ 
+code : 
+
+```
+thomas@fedora:~/Qdev/QDev-R4.02/PrivateBin/lib$ git status
+Sur la branche nouvelle_branche
+Modifications qui ne seront pas validées :
+  (utilisez "git add <fichier>..." pour mettre à jour ce qui sera validé)
+  (utilisez "git restore <fichier>..." pour annuler les modifications dans le répertoire de travail)
+        modifié :         Configuration.php
+        modifié :         ../../README.md
+
+aucune modification n'a été ajoutée à la validation (utilisez "git add" ou "git commit -a")
+
+```
+
+
+
