@@ -47,8 +47,7 @@ Mes Manipulations :
 Pour celui-ci, j'ai fait :
  - créer une nouvelle branche nommée nouvelle_branche
  - modification du fichier Configuration.php
- -
- 
+ - git add -p
  
 code : 
 
@@ -65,5 +64,34 @@ aucune modification n'a été ajoutée à la validation (utilisez "git add" ou "
 
 ```
 
+```
+thomas@fedora:~/Qdev/QDev-R4.02/PrivateBin/lib$ git add -p
+diff --git a/PrivateBin/lib/Configuration.php b/PrivateBin/lib/Configuration.php
+index 452e561..91078e9 100644
+--- a/PrivateBin/lib/Configuration.php
++++ b/PrivateBin/lib/Configuration.php
+@@ -50,7 +50,7 @@ class Configuration
+             'info'                     => 'More information on the <a href=\'https://privatebin.info/\'>project page</a>.',
+             'notice'                   => '',
+             'languageselection'        => false,
+-            'languagedefault'          => '',
++            'languagedefault'          => 'fr',
+             'urlshortener'             => '',
+             'qrcode'                   => true,
+             'icon'                     => 'identicon',
+
+```
+
+```
+@@ -65,6 +65,7 @@ class Configuration
+         'expire_options' => array(
+             '5min'   => 300,
+             '10min'  => 600,
++            '30min' => 1800,   
+             '1hour'  => 3600,
+             '1day'   => 86400,
+             '1week'  => 604800,
+(2/2) Indexer cette section [y,n,q,a,d,K,g,/,e,p,?] ? y
+```
 
 
