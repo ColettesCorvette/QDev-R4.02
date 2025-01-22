@@ -112,3 +112,13 @@ index 452e561..91078e9 100644
 ```
 
 
+## Transparents #4 ##
+
+Mes Manipulations :
+
+Pour celui-ci, j'ai fait :
+  
+  - création d'une branche nommée "change-default-expiration" depuis le main
+  - modification du fichier de Configuration.php
+  - 
+  
