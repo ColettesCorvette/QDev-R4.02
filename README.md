@@ -197,6 +197,24 @@ Modifications qui seront validées :
 ```
 
 
+## Transparents #5 ##
+
+Mes Manipulations :
+
+Pour celui-ci, j'ai fait :
+  
+  - modification message du dernier commit
+  - 
+
+code : 
+
+
+
+```
+  git commit --amend -m "Oops"
+  git push --force origin main
+```
+  
 
 
 
