@@ -119,6 +119,85 @@ Mes Manipulations :
 Pour celui-ci, j'ai fait :
   
   - création d'une branche nommée "change-default-expiration" depuis le main
-  - modification du fichier de Configuration.php
-  - 
+  - modification du fichier de Configuration.php, et commit sur cette branche
+  - basculer sur la branche main
+  - modification du fichier Configuration.php
+  
+code : 
+
+```
+git branch change-default-expiration
+git commit
+git checkout main
+git commit
+git merge change-default-expiration
+
+```
+
+
+resolution des conflits :
+
+
+modification à la main
+
+```
+git add PrivateBin/lib/Configuration.php
+git status
+git commit et git merge --continue sont équivalents dans ce contexte
+```
+
+
+```
+thomas@fedora:~/Qdev/QDev-R4.02$ git merge change-default-expiration 
+Fusion automatique de PrivateBin/lib/Configuration.php
+CONFLIT (contenu) : Conflit de fusion dans PrivateBin/lib/Configuration.php
+La fusion automatique a échoué ; réglez les conflits et validez le résultat.
+```
+
+
+```
+Sur la branche main
+Votre branche est à jour avec 'origin/main'.
+
+Vous avez des chemins non fusionnés.
+  (réglez les conflits puis lancez "git commit")
+  (utilisez "git merge --abort" pour annuler la fusion)
+
+Modifications qui seront validées :
+        modifié :         README.md
+
+Chemins non fusionnés :
+  (utilisez "git add <fichier>..." pour marquer comme résolu)
+        modifié des deux côtés :  PrivateBin/lib/Configuration.php
+```
+
+
+```
+        'expire' => array(
+<<<<<<< HEAD
+            'default' => '1day',
+=======
+            'default' => '1month',
+>>>>>>> change-default-expiration
+        ),
+```
+
+```
+thomas@fedora:~/Qdev/QDev-R4.02$ git status
+Sur la branche main
+Votre branche est à jour avec 'origin/main'.
+
+Tous les conflits sont réglés mais la fusion n'est pas terminée.
+  (utilisez "git commit" pour terminer la fusion)
+
+Modifications qui seront validées :
+        modifié :         PrivateBin/lib/Configuration.php
+        modifié :         README.md
+
+```
+
+
+
+
+
   
