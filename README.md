@@ -111,6 +111,76 @@ index 452e561..91078e9 100644
 (2/2) Indexer cette section [y,n,q,a,d,K,g,/,e,p,?] ? y
 ```
 
+## ################################### GIT 2ND RENDU ##########################################
+
+
+## Transparents # 3 ##
+
+Mes Manipulations :
+
+Pour celui-ci, j'ai fait :
+  
+  - git checkout main
+  - git git merge nouvelle_branche
+  - git log
+  - git branch -d nouvelle_branche ou -D pour forcer la suppression en cas de non-fusion
+  
+
+
+  
+Les commmits de la branche main sont toujours présents
+Si la branche alternative = branche main et n'apporte plus de modifications, ont peut la supprimer
+  
+code : 
+
+```
+commit 74d7aea5662645aad85c8d22bc240db17ce57dd2 (origin/nouvelle_branche, nouvelle_branche)
+Author: Thomas <thomas.fuchs6@etu.univ-lorraine.fr>
+Date:   Tue Jan 21 13:24:57 2025 +0100
+
+    màj readme
+
+commit 17f9113d07c7a8a9b74b72ffa95a789e057b18c8
+Author: Thomas <thomas.fuchs6@etu.univ-lorraine.fr>
+Date:   Tue Jan 21 13:20:40 2025 +0100
+
+    màj readme
+
+commit 3955ccf01c052d7145b4625cd9fca4f77953cc2c
+Author: Thomas <thomas.fuchs6@etu.univ-lorraine.fr>
+Date:   Tue Jan 21 13:15:07 2025 +0100
+
+    màj readme
+
+commit 5c610a66172b2d1a8a368e51703b3c10c611cf09
+Author: Thomas <thomas.fuchs6@etu.univ-lorraine.fr>
+Date:   Tue Jan 21 13:09:47 2025 +0100
+
+    modifications
+
+commit b01a36e91b2ae228f70a745e5ca94ec9de5a7dfe
+Author: Thomas <thomas.fuchs6@etu.univ-lorraine.fr>
+Date:   Tue Jan 21 11:10:26 2025 +0100
+
+    màj readme
+
+commit 4b54b59cb97fe96b7f5ca860b4afecdfb839a8f5
+Author: Thomas <thomas.fuchs6@etu.univ-lorraine.fr>
+Date:   Tue Jan 21 11:06:30 2025 +0100
+
+    ajouter dossier du programme
+
+commit 077b0bfdeea8ebdc954f897ad3fb934593e3699e
+Author: Thomas <147412616+ColettesCorvette@users.noreply.github.com>
+Date:   Mon Jan 20 15:41:56 2025 +0100
+
+    Initial
+    
+(END)
+
+```
+
+
 
 ## Transparents #4 ##
 
@@ -203,19 +273,93 @@ Mes Manipulations :
 
 Pour celui-ci, j'ai fait :
   
-  - modification message du dernier commit
-  - 
+  - git commit --amend -m "Oops" //test
+  - git checkout rename-to-charlebin
+  - git log
+  - make start
+  - git bisect bad
+  - git bisect good 065f28cb677c36f7a8054a27c8983a1b6d65b1ae
+  - git bisect next
+  - git bisect reset //pour terminer la bissection
 
 code : 
 
 
 
 ```
-  git commit --amend -m "Oops"
-  git push --force origin main
-```
+commit f4eb0662a4778e192d9689dada5b347688e257dd
+Author: Florian Ferbach <florian.ferbach@univ-lorraine.fr>
+Date:   Sat Jan 21 11:00:03 2023 +0100
+
+    Rename page title to CharleBin
+    
   
+    
+thomas@fedora:~/Qdev-S4/PrivateBin$ git bisect good 9409db7cdc3069e0f6d4b62e17d40c8c9a96f7f2
+Bissection : 0 révision à tester après ceci (à peu près 0 étape)
+[f4eb0662a4778e192d9689dada5b347688e257dd] 
+  
+    Rename page title to CharleBin
+
+
+commit 14c21d953f4752340fbd506ca95cdec92a1b6f0b (HEAD)
+Author: Florian Ferbach <florian.ferbach@univ-lorraine.fr>
+Date:   Sat Jan 21 10:50:29 2023 +0100
+
+    Replace android icon
 
 
 
+thomas@fedora:~/Qdev-S4/PrivateBin$ git bisect good 065f28cb677c36f7a8054a27c8983a1b6d65b1ae
+Bissection : 3 révisions à tester après ceci (à peu près 2 étapes)
+[e43cc820431e81ea43c1830b05f98730f64ce9ee] 
+
+    Replace osx icon
+    
+```
+
+Le mauvais commit était "Replace android icon"
+
+## Transparents #6 ##
+
+Mes manipulations :
+
+
+Pour celui-ci, j'ai fait :
+  
+  - git bisect run make test
+
+code : 
+
+
+```
+thomas@fedora:~/Qdev-S4/PrivateBin$ git bisect run make test
+Lancement de 'make' 'test'
+curl -s localhost:8080 | grep -q "<title>PrivateBin</title>"
+make: *** [makefile:8: test] Error 1
+Bissection : 1 révision à tester après ceci (à peu près 1 étape)
+[522f5852eb78eeb3fef370d703446c612893d1f1] Replace iOS icon
+Lancement de 'make' 'test'
+curl -s localhost:8080 | grep -q "<title>PrivateBin</title>"
+make: *** [makefile:8: test] Error 1
+Bissection : 0 révision à tester après ceci (à peu près 0 étape)
+[14c21d953f4752340fbd506ca95cdec92a1b6f0b] Replace android icon
+Lancement de 'make' 'test'
+curl -s localhost:8080 | grep -q "<title>PrivateBin</title>"
+make: *** [makefile:8: test] Error 1
+14c21d953f4752340fbd506ca95cdec92a1b6f0b is the first bad commit
+commit 14c21d953f4752340fbd506ca95cdec92a1b6f0b
+Author: Florian Ferbach <florian.ferbach@univ-lorraine.fr>
+Date:   Sat Jan 21 10:50:29 2023 +0100
+
+    Replace android icon
+
+ img/android-chrome-192x192.png | Bin 5557 -> 14554 bytes
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+la bissection a trouvé le premier mauvais commit
+
+
+```
+
+la méthode suivante a trouvé le même mauvais commit
   
