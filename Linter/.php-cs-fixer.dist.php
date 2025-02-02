@@ -1,10 +1,13 @@
 <?php
 
-$finder = PhpCsFixer\Finder::create()
-->in(__DIR__) // Change this to match your project directories
+use PhpCsFixer\Config;
+use PhpCsFixer\Finder;
+
+$finder = Finder::create()
+->in(__DIR__)
 ->name('*.php');
 
-return (new PhpCsFixer\Config())
+return (new Config())
 ->setRules([
     '@PSR12' => true,
     'array_syntax' => ['syntax' => 'short'],
