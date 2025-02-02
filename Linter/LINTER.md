@@ -113,9 +113,69 @@ No syntax errors detected in ./vendor/squizlabs/php_codesniffer/src/Exceptions/R
 
 ```
 
-
+création makefile et ruleset.xml
 
 ## Transparent 2 :
+
+composer require --dev "friendsofphp/php-cs-fixer"
+
+```
+./composer.json has been updated
+Running composer update friendsofphp/php-cs-fixer
+Loading composer repositories with package information
+Updating dependencies
+Lock file operations: 26 installs, 0 updates, 0 removals
+  - Locking clue/ndjson-react (v1.3.0)
+  - Locking composer/semver (3.4.3)
+  - Locking evenement/evenement (v3.0.2)
+  - Locking fidry/cpu-core-counter (1.2.0)
+  - Locking friendsofphp/php-cs-fixer (v3.68.5)
+  - Locking psr/event-dispatcher (1.0.0)
+  - Locking react/cache (v1.2.0)
+  - Locking react/child-process (v0.6.6)
+  - Locking react/dns (v1.13.0)
+  - Locking react/event-loop (v1.5.0)
+  - Locking react/promise (v3.2.0)
+  - Locking react/socket (v1.16.0)
+  - Locking react/stream (v1.4.0)
+  - Locking sebastian/diff (6.0.2)
+  - Locking symfony/console (v7.2.1)
+  - Locking symfony/event-dispatcher (v7.2.0)
+  - Locking symfony/event-dispatcher-contracts (v3.5.1)
+  - Locking symfony/finder (v7.2.2)
+  
+  ... etc
+  
+```
+
+
+chmod 644 .php-cs-fixer.dist.php
+chmod +x .git/hooks/pre-commit
+rm -rf .php-cs-fixer.cache
+./vendor/bin/php-cs-fixer fix
+
+
+```
+PHP CS Fixer 3.68.5 Persian Successor by Fabien Potencier, Dariusz Ruminski and contributors.
+PHP runtime: 8.3.16
+Running analysis on 1 core sequentially.
+You can enable parallel runner and speed up the analysis! Please see usage docs for more information.
+Loaded config default from "/home/thomas/Qdev-S4/QDev-R4.02/Linter/.php-cs-fixer.dist.php".
+ 1/1 [▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓] 100%
+
+   1) test.php
+
+Fixed 1 of 1 files in 0.006 seconds, 14.00 MB memory used
+
+```
+
+Est-il possible de commit en ignorant le pre-commit hook ?
+
+git commit --no-verify -m "message"
+
+
+
+
 
 
 
