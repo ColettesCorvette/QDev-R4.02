@@ -1,0 +1,28 @@
+name: Lint
+
+on:
+  pull_request:
+    branches:
+      - main
+    paths:
+      - '**/*.php'
+jobs:
+  lint:
+    runs-on: fedora 41
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.3.16'
+
+      - name: Install dependencies
+        run: |
+          composer install
+
+      - name: Run PHP CS Fixer
+        run: |
+          ./vendor/bin/php-cs-fixer fix --dry-run --diff
