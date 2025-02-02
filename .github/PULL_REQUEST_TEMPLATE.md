@@ -15,7 +15,7 @@ Veuillez décrire les étapes nécessaires pour tester votre modification.
 
 1. **Cloner repository** ```sh git clone git@github.com:floo51/PrivateBin.git && cd PrivateBin ```
 2. **Installer les dépendances** 
-3. **Modifier le code** enlever le footer dans css/bootstrap/privatebin.css
+3. **Modifier le code** 
 4. **Lancer l'application** make start
 
 ## Checklist
