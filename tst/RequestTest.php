@@ -7,9 +7,9 @@ class RequestTest extends TestCase
 {
     public function reset()
     {
-        $_SERVER = array();
-        $_GET    = array();
-        $_POST   = array();
+        $_SERVER = [];
+        $_GET    = [];
+        $_POST   = [];
     }
 
     /**
@@ -128,7 +128,7 @@ class RequestTest extends TestCase
         $_SERVER['REQUEST_METHOD']        = 'POST';
         $_SERVER['HTTP_X_REQUESTED_WITH'] = 'JSONHttpRequest';
         $_SERVER['QUERY_STRING']          = $id;
-        $_GET                             = array($id => '');
+        $_GET                             = [$id => ''];
         $file                             = tempnam(sys_get_temp_dir(), 'FOO');
         file_put_contents($file, '{"deletetoken":"bar"}');
         Request::setInputStream($file);
@@ -212,7 +212,7 @@ class RequestTest extends TestCase
     {
         $this->reset();
         $id              = $this->getRandomId();
-        $queryParams     = array($id);
+        $queryParams     = [$id];
         $queryParamCount = random_int(1, 5);
         for ($i = 0; $i < $queryParamCount; ++$i) {
             array_push($queryParams, $this->getRandomQueryChars());

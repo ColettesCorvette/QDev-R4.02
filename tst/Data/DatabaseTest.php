@@ -12,12 +12,12 @@ class DatabaseTest extends TestCase
 
     private $_path;
 
-    private $_options = array(
+    private $_options = [
         'dsn' => 'sqlite::memory:',
         'usr' => null,
         'pwd' => null,
-        'opt' => array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION),
-    );
+        'opt' => [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION],
+    ];
 
     public function setUp(): void
     {
@@ -36,7 +36,7 @@ class DatabaseTest extends TestCase
 
     public function testSaltMigration()
     {
-        ServerSalt::setStore(new Filesystem(array('dir' => 'data')));
+        ServerSalt::setStore(new Filesystem(['dir' => 'data']));
         $salt = ServerSalt::get();
         $file = 'data' . DIRECTORY_SEPARATOR . 'salt.php';
         $this->assertFileExists($file, 'ServerSalt got initialized and stored on disk');
@@ -73,10 +73,10 @@ class DatabaseTest extends TestCase
         $comment2['id']       = Helper::getPasteId();
         $comment2['parentid'] = Helper::getPasteId();
         $this->assertEquals(
-            array(
+            [
                 $comment1['meta']['postdate']       => $comment1,
                 $comment2['meta']['created'] . '.1' => $comment2,
-            ),
+            ],
             $this->_model->readComments(Helper::getPasteId())
         );
 
@@ -91,7 +91,7 @@ class DatabaseTest extends TestCase
     {
         // this assumes a version 1 formatted paste
         $this->_model->delete(Helper::getPasteId());
-        $original                          = $paste                                = Helper::getPasteWithAttachment(1, array('expire_date' => 1344803344));
+        $original                          = $paste                                = Helper::getPasteWithAttachment(1, ['expire_date' => 1344803344]);
         $paste['meta']['burnafterreading'] = $original['meta']['burnafterreading'] = true;
         $paste['meta']['attachment']       = $paste['attachment'];
         $paste['meta']['attachmentname']   = $paste['attachmentname'];
@@ -109,15 +109,15 @@ class DatabaseTest extends TestCase
     public function testPurge()
     {
         $this->_model->delete(Helper::getPasteId());
-        $expired = Helper::getPaste(2, array('expire_date' => 1344803344));
-        $paste   = Helper::getPaste(2, array('expire_date' => time() + 3600));
-        $keys    = array('a', 'b', 'c', 'd', 'e', 'f', 'g', 'x', 'y', 'z');
-        $ids     = array();
+        $expired = Helper::getPaste(2, ['expire_date' => 1344803344]);
+        $paste   = Helper::getPaste(2, ['expire_date' => time() + 3600]);
+        $keys    = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'x', 'y', 'z'];
+        $ids     = [];
         foreach ($keys as $key) {
             $ids[$key] = hash('fnv164', $key);
             $this->_model->delete($ids[$key]);
             $this->assertFalse($this->_model->exists($ids[$key]), "paste $key does not yet exist");
-            if (in_array($key, array('y', 'z'))) {
+            if (in_array($key, ['y', 'z'])) {
                 $this->assertTrue($this->_model->create($ids[$key], $paste), "store $key paste");
             } elseif ($key === 'x') {
                 $this->assertTrue($this->_model->create($ids[$key], Helper::getPaste()), "store $key paste");
@@ -128,7 +128,7 @@ class DatabaseTest extends TestCase
         }
         $this->_model->purge(10);
         foreach ($ids as $key => $id) {
-            if (in_array($key, array('x', 'y', 'z'))) {
+            if (in_array($key, ['x', 'y', 'z'])) {
                 $this->assertTrue($this->_model->exists($id), "paste $key exists after purge");
                 $this->_model->delete($id);
             } else {
@@ -140,64 +140,64 @@ class DatabaseTest extends TestCase
     public function testGetIbmInstance()
     {
         $this->expectException(PDOException::class);
-        new Database(array(
+        new Database([
             'dsn' => 'ibm:', 'usr' => null, 'pwd' => null,
-            'opt' => array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION),
-        ));
+            'opt' => [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION],
+        ]);
     }
 
     public function testGetInformixInstance()
     {
         $this->expectException(PDOException::class);
-        new Database(array(
+        new Database([
             'dsn' => 'informix:', 'usr' => null, 'pwd' => null,
-            'opt' => array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION),
-        ));
+            'opt' => [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION],
+        ]);
     }
 
     public function testGetMssqlInstance()
     {
         $this->expectException(PDOException::class);
-        new Database(array(
+        new Database([
             'dsn' => 'mssql:', 'usr' => null, 'pwd' => null,
-            'opt' => array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION),
-        ));
+            'opt' => [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION],
+        ]);
     }
 
     public function testGetMysqlInstance()
     {
         $this->expectException(PDOException::class);
-        new Database(array(
+        new Database([
             'dsn' => 'mysql:', 'usr' => null, 'pwd' => null,
-            'opt' => array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION),
-        ));
+            'opt' => [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION],
+        ]);
     }
 
     public function testGetOciInstance()
     {
         $this->expectException(PDOException::class);
-        new Database(array(
+        new Database([
             'dsn' => 'oci:', 'usr' => null, 'pwd' => null,
-            'opt' => array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION),
-        ));
+            'opt' => [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION],
+        ]);
     }
 
     public function testGetPgsqlInstance()
     {
         $this->expectException(PDOException::class);
-        new Database(array(
+        new Database([
             'dsn' => 'pgsql:', 'usr' => null, 'pwd' => null,
-            'opt' => array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION),
-        ));
+            'opt' => [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION],
+        ]);
     }
 
     public function testGetFooInstance()
     {
         $this->expectException(Exception::class);
         $this->expectExceptionCode(5);
-        new Database(array(
+        new Database([
             'dsn' => 'foo:', 'usr' => null, 'pwd' => null, 'opt' => null,
-        ));
+        ]);
     }
 
     public function testMissingDsn()
@@ -247,7 +247,7 @@ class DatabaseTest extends TestCase
         $this->_options['tbl'] = 'bar_';
         $model                 = new Database($this->_options);
 
-        $original               = $paste = Helper::getPasteWithAttachment(1, array('expire_date' => 1344803344));
+        $original               = $paste = Helper::getPasteWithAttachment(1, ['expire_date' => 1344803344]);
         $meta                   = $paste['meta'];
         $meta['attachment']     = $paste['attachment'];
         $meta['attachmentname'] = $paste['attachmentname'];
@@ -261,7 +261,7 @@ class DatabaseTest extends TestCase
         );
         $statement = $db->prepare('INSERT INTO bar_paste VALUES(?,?,?,?,?,?,?,?,?)');
         $statement->execute(
-            array(
+            [
                 Helper::getPasteId(),
                 $paste['data'],
                 $paste['meta']['postdate'],
@@ -271,7 +271,7 @@ class DatabaseTest extends TestCase
                 json_encode($meta),
                 null,
                 null,
-            )
+            ]
         );
         $statement->closeCursor();
 
@@ -291,7 +291,7 @@ class DatabaseTest extends TestCase
         $this->_options['dsn'] = 'sqlite:' . $path;
         $this->_options['tbl'] = 'baz_';
         $model                 = new Database($this->_options);
-        $paste                 = Helper::getPaste(1, array('expire_date' => 1344803344));
+        $paste                 = Helper::getPaste(1, ['expire_date' => 1344803344]);
         unset($paste['meta']['formatter'], $paste['meta']['opendiscussion'], $paste['meta']['salt']);
         $model->delete(Helper::getPasteId());
 
@@ -303,7 +303,7 @@ class DatabaseTest extends TestCase
         );
         $statement = $db->prepare('INSERT INTO baz_paste VALUES(?,?,?,?,?,?,?,?,?)');
         $statement->execute(
-            array(
+            [
                 Helper::getPasteId(),
                 $paste['data'],
                 $paste['meta']['postdate'],
@@ -313,7 +313,7 @@ class DatabaseTest extends TestCase
                 '{',
                 null,
                 null,
-            )
+            ]
         );
         $statement->closeCursor();
 
@@ -361,7 +361,7 @@ class DatabaseTest extends TestCase
 
         // check if version number was upgraded in created configuration table
         $statement = $db->prepare('SELECT value FROM foo_config WHERE id LIKE ?');
-        $statement->execute(array('VERSION'));
+        $statement->execute(['VERSION']);
         $result = $statement->fetch(PDO::FETCH_ASSOC);
         $statement->closeCursor();
         $this->assertEquals(Controller::VERSION, $result['value']);

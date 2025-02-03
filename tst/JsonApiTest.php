@@ -19,12 +19,12 @@ class JsonApiTest extends TestCase
         if (!is_dir($this->_path)) {
             mkdir($this->_path);
         }
-        $this->_model = new Filesystem(array('dir' => $this->_path));
+        $this->_model = new Filesystem(['dir' => $this->_path]);
         ServerSalt::setStore($this->_model);
 
-        $_POST   = array();
-        $_GET    = array();
-        $_SERVER = array();
+        $_POST   = [];
+        $_GET    = [];
+        $_SERVER = [];
         if ($this->_model->exists(Helper::getPasteId())) {
             $this->_model->delete(Helper::getPasteId());
         }
@@ -118,9 +118,9 @@ class JsonApiTest extends TestCase
         $this->assertTrue($this->_model->exists(Helper::getPasteId()), 'paste exists before deleting data');
         $paste = $this->_model->read(Helper::getPasteId());
         $file  = tempnam(sys_get_temp_dir(), 'FOO');
-        file_put_contents($file, json_encode(array(
+        file_put_contents($file, json_encode([
             'deletetoken' => hash_hmac('sha256', Helper::getPasteId(), $paste['meta']['salt']),
-        )));
+        ]));
         Request::setInputStream($file);
         $_SERVER['QUERY_STRING']          = Helper::getPasteId();
         $_GET[Helper::getPasteId()]       = '';
@@ -145,10 +145,10 @@ class JsonApiTest extends TestCase
         $this->assertTrue($this->_model->exists(Helper::getPasteId()), 'paste exists before deleting data');
         $paste = $this->_model->read(Helper::getPasteId());
         $file  = tempnam(sys_get_temp_dir(), 'FOO');
-        file_put_contents($file, json_encode(array(
+        file_put_contents($file, json_encode([
             'pasteid'     => Helper::getPasteId(),
             'deletetoken' => hash_hmac('sha256', Helper::getPasteId(), $paste['meta']['salt']),
-        )));
+        ]));
         Request::setInputStream($file);
         $_SERVER['HTTP_X_REQUESTED_WITH'] = 'JSONHttpRequest';
         $_SERVER['REQUEST_METHOD']        = 'POST';

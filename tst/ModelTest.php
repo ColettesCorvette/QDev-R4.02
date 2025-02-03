@@ -28,15 +28,15 @@ class ModelTest extends TestCase
         }
         $options                   = parse_ini_file(CONF_SAMPLE, true);
         $options['purge']['limit'] = 0;
-        $options['model']          = array(
+        $options['model']          = [
             'class' => 'Database',
-        );
-        $options['model_options'] = array(
+        ];
+        $options['model_options'] = [
             'dsn' => 'sqlite::memory:',
             'usr' => null,
             'pwd' => null,
-            'opt' => array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION),
-        );
+            'opt' => [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION],
+        ];
         Helper::confBackup();
         Helper::createIniFile(CONF, $options);
         ServerSalt::setStore(new Database($options['model_options']));
@@ -100,7 +100,7 @@ class ModelTest extends TestCase
         $this->_model->getPaste(Helper::getPasteId())->delete();
         $paste = $this->_model->getPaste(Helper::getPasteId());
         $this->assertFalse($paste->exists(), 'paste successfully deleted');
-        $this->assertEquals(array(), $paste->getComments(), 'comment was deleted with paste');
+        $this->assertEquals([], $paste->getComments(), 'comment was deleted with paste');
     }
 
     public function testPasteV1()
@@ -114,15 +114,15 @@ class ModelTest extends TestCase
         }
         $options                   = parse_ini_file(CONF_SAMPLE, true);
         $options['purge']['limit'] = 0;
-        $options['model']          = array(
+        $options['model']          = [
             'class' => 'Database',
-        );
-        $options['model_options'] = array(
+        ];
+        $options['model_options'] = [
             'dsn' => 'sqlite:' . $path,
             'usr' => null,
             'pwd' => null,
-            'opt' => array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION),
-        );
+            'opt' => [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION],
+        ];
         Helper::createIniFile(CONF, $options);
         $model = new Model(new Configuration);
         $model->getPaste('0000000000000000')->exists(); // triggers database table creation
@@ -136,7 +136,7 @@ class ModelTest extends TestCase
         );
         $statement = $db->prepare('INSERT INTO paste VALUES(?,?,?,?,?,?,?,?,?)');
         $statement->execute(
-            array(
+            [
                 Helper::getPasteId(),
                 $pasteData['data'],
                 $pasteData['meta']['postdate'],
@@ -146,7 +146,7 @@ class ModelTest extends TestCase
                 json_encode($pasteData['meta']),
                 null,
                 null,
-            )
+            ]
         );
         $statement->closeCursor();
 
@@ -192,15 +192,15 @@ class ModelTest extends TestCase
         }
         $options                   = parse_ini_file(CONF_SAMPLE, true);
         $options['purge']['limit'] = 0;
-        $options['model']          = array(
+        $options['model']          = [
             'class' => 'Database',
-        );
-        $options['model_options'] = array(
+        ];
+        $options['model_options'] = [
             'dsn' => 'sqlite:' . $path,
             'usr' => null,
             'pwd' => null,
-            'opt' => array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION),
-        );
+            'opt' => [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION],
+        ];
         Helper::createIniFile(CONF, $options);
         $model = new Model(new Configuration);
 
@@ -233,15 +233,15 @@ class ModelTest extends TestCase
         }
         $options                   = parse_ini_file(CONF_SAMPLE, true);
         $options['purge']['limit'] = 0;
-        $options['model']          = array(
+        $options['model']          = [
             'class' => 'Database',
-        );
-        $options['model_options'] = array(
+        ];
+        $options['model_options'] = [
             'dsn' => 'sqlite:' . $path,
             'usr' => null,
             'pwd' => null,
-            'opt' => array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION),
-        );
+            'opt' => [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION],
+        ];
         Helper::createIniFile(CONF, $options);
         $model = new Model(new Configuration);
 
@@ -424,15 +424,15 @@ class ModelTest extends TestCase
         $conf  = new Configuration;
         $store = new Database($conf->getSection('model_options'));
         $store->delete(Helper::getPasteId());
-        $expired = Helper::getPaste(2, array('expire_date' => 1344803344));
-        $paste   = Helper::getPaste(2, array('expire_date' => time() + 3600));
-        $keys    = array('a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'x', 'y', 'z');
-        $ids     = array();
+        $expired = Helper::getPaste(2, ['expire_date' => 1344803344]);
+        $paste   = Helper::getPaste(2, ['expire_date' => time() + 3600]);
+        $keys    = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'x', 'y', 'z'];
+        $ids     = [];
         foreach ($keys as $key) {
             $ids[$key] = hash('fnv164', $key);
             $store->delete($ids[$key]);
             $this->assertFalse($store->exists($ids[$key]), "paste $key does not yet exist");
-            if (in_array($key, array('x', 'y', 'z'))) {
+            if (in_array($key, ['x', 'y', 'z'])) {
                 $this->assertTrue($store->create($ids[$key], $paste), "store $key paste");
             } else {
                 $this->assertTrue($store->create($ids[$key], $expired), "store $key paste");
@@ -441,7 +441,7 @@ class ModelTest extends TestCase
         }
         $this->_model->purge(10);
         foreach ($ids as $key => $id) {
-            if (in_array($key, array('x', 'y', 'z'))) {
+            if (in_array($key, ['x', 'y', 'z'])) {
                 $this->assertTrue($this->_model->getPaste($id)->exists(), "paste $key exists after purge");
                 $this->_model->getPaste($id)->delete();
             } else {
@@ -454,15 +454,15 @@ class ModelTest extends TestCase
     {
         $options                 = parse_ini_file(CONF, true);
         $options['main']['icon'] = 'none';
-        $options['model']        = array(
+        $options['model']        = [
             'class' => 'Database',
-        );
-        $options['model_options'] = array(
+        ];
+        $options['model_options'] = [
             'dsn' => 'sqlite::memory:',
             'usr' => null,
             'pwd' => null,
-            'opt' => array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION),
-        );
+            'opt' => [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION],
+        ];
         Helper::createIniFile(CONF, $options);
         $model = new Model(new Configuration);
 
@@ -500,15 +500,15 @@ class ModelTest extends TestCase
     {
         $options                 = parse_ini_file(CONF, true);
         $options['main']['icon'] = 'vizhash';
-        $options['model']        = array(
+        $options['model']        = [
             'class' => 'Database',
-        );
-        $options['model_options'] = array(
+        ];
+        $options['model_options'] = [
             'dsn' => 'sqlite::memory:',
             'usr' => null,
             'pwd' => null,
-            'opt' => array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION),
-        );
+            'opt' => [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION],
+        ];
         Helper::createIniFile(CONF, $options);
         $model = new Model(new Configuration);
 

@@ -16,7 +16,7 @@ class FilesystemTest extends TestCase
         /* Setup Routine */
         $this->_path        = sys_get_temp_dir() . DIRECTORY_SEPARATOR . 'privatebin_data';
         $this->_invalidPath = $this->_path . DIRECTORY_SEPARATOR . 'bar';
-        $this->_model       = new Filesystem(array('dir' => $this->_path));
+        $this->_model       = new Filesystem(['dir' => $this->_path]);
         if (!is_dir($this->_path)) {
             mkdir($this->_path);
         }
@@ -37,7 +37,7 @@ class FilesystemTest extends TestCase
         $this->_model->delete(Helper::getPasteId());
 
         // storing pastes
-        $paste = Helper::getPaste(2, array('expire_date' => 1344803344));
+        $paste = Helper::getPaste(2, ['expire_date' => 1344803344]);
         $this->assertFalse($this->_model->exists(Helper::getPasteId()), 'paste does not yet exist');
         $this->assertTrue($this->_model->create(Helper::getPasteId(), $paste), 'store new paste');
         $this->assertTrue($this->_model->exists(Helper::getPasteId()), 'paste exists after storing it');
@@ -53,7 +53,7 @@ class FilesystemTest extends TestCase
         $comment['id']       = Helper::getCommentId();
         $comment['parentid'] = Helper::getPasteId();
         $this->assertEquals(
-            array($comment['meta']['created'] => $comment),
+            [$comment['meta']['created'] => $comment],
             $this->_model->readComments(Helper::getPasteId())
         );
 
@@ -67,7 +67,7 @@ class FilesystemTest extends TestCase
     public function testFileBasedAttachmentStoreWorks()
     {
         $this->_model->delete(Helper::getPasteId());
-        $original                        = $paste = Helper::getPasteWithAttachment(1, array('expire_date' => 1344803344));
+        $original                        = $paste = Helper::getPasteWithAttachment(1, ['expire_date' => 1344803344]);
         $paste['meta']['attachment']     = $paste['attachment'];
         $paste['meta']['attachmentname'] = $paste['attachmentname'];
         unset($paste['attachment'], $paste['attachmentname']);
@@ -84,14 +84,14 @@ class FilesystemTest extends TestCase
     public function testPurge()
     {
         mkdir($this->_path . DIRECTORY_SEPARATOR . '00', 0777, true);
-        $expired = Helper::getPaste(2, array('expire_date' => 1344803344));
-        $paste   = Helper::getPaste(2, array('expire_date' => time() + 3600));
-        $keys    = array('a', 'b', 'c', 'd', 'e', 'f', 'g', 'x', 'y', 'z');
-        $ids     = array();
+        $expired = Helper::getPaste(2, ['expire_date' => 1344803344]);
+        $paste   = Helper::getPaste(2, ['expire_date' => time() + 3600]);
+        $keys    = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'x', 'y', 'z'];
+        $ids     = [];
         foreach ($keys as $key) {
             $ids[$key] = hash('fnv164', $key);
             $this->assertFalse($this->_model->exists($ids[$key]), "paste $key does not yet exist");
-            if (in_array($key, array('x', 'y', 'z'))) {
+            if (in_array($key, ['x', 'y', 'z'])) {
                 $this->assertTrue($this->_model->create($ids[$key], $paste), "store $key paste");
             } elseif ($key === 'x') {
                 $this->assertTrue($this->_model->create($ids[$key], Helper::getPaste()), "store $key paste");
@@ -102,7 +102,7 @@ class FilesystemTest extends TestCase
         }
         $this->_model->purge(10);
         foreach ($ids as $key => $id) {
-            if (in_array($key, array('x', 'y', 'z'))) {
+            if (in_array($key, ['x', 'y', 'z'])) {
                 $this->assertTrue($this->_model->exists($id), "paste $key exists after purge");
                 $this->_model->delete($id);
             } else {
@@ -114,7 +114,7 @@ class FilesystemTest extends TestCase
     public function testErrorDetection()
     {
         $this->_model->delete(Helper::getPasteId());
-        $paste = Helper::getPaste(2, array('expire' => "Invalid UTF-8 sequence: \xB1\x31"));
+        $paste = Helper::getPaste(2, ['expire' => "Invalid UTF-8 sequence: \xB1\x31"]);
         $this->assertFalse($this->_model->exists(Helper::getPasteId()), 'paste does not yet exist');
         $this->assertFalse($this->_model->create(Helper::getPasteId(), $paste), 'unable to store broken paste');
         $this->assertFalse($this->_model->exists(Helper::getPasteId()), 'paste does still not exist');
@@ -124,7 +124,7 @@ class FilesystemTest extends TestCase
     public function testCommentErrorDetection()
     {
         $this->_model->delete(Helper::getPasteId());
-        $comment = Helper::getComment(1, array('nickname' => "Invalid UTF-8 sequence: \xB1\x31"));
+        $comment = Helper::getComment(1, ['nickname' => "Invalid UTF-8 sequence: \xB1\x31"]);
         $this->assertFalse($this->_model->exists(Helper::getPasteId()), 'paste does not yet exist');
         $this->assertTrue($this->_model->create(Helper::getPasteId(), Helper::getPaste()), 'store new paste');
         $this->assertTrue($this->_model->exists(Helper::getPasteId()), 'paste exists after storing it');
@@ -139,7 +139,7 @@ class FilesystemTest extends TestCase
         $paste     = Helper::getPaste();
         $comment   = Helper::getComment();
         $commentid = Helper::getCommentId();
-        $ids       = array();
+        $ids       = [];
         for ($i = 0, $max = 10; $i < $max; ++$i) {
             // PHPs mt_rand only supports 32 bit or up 0x7fffffff on 64 bit systems to be precise :-/
             $dataid = str_pad(dechex(mt_rand(0, mt_getrandmax())), 8, '0', STR_PAD_LEFT) .
@@ -174,7 +174,7 @@ class FilesystemTest extends TestCase
             $comment             = $comment;
             $comment['id']       = $commentid;
             $comment['parentid'] = $dataid;
-            $this->assertEquals($this->_model->readComments($dataid), array($comment['meta']['created'] => $comment), "comment of $dataid wasn't modified in the conversion");
+            $this->assertEquals($this->_model->readComments($dataid), [$comment['meta']['created'] => $comment], "comment of $dataid wasn't modified in the conversion");
         }
     }
 }

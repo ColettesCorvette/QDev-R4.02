@@ -5,7 +5,7 @@ use PrivateBin\I18n;
 
 class I18nTest extends TestCase
 {
-    private $_translations = array();
+    private $_translations = [];
 
     public function setUp(): void
     {
@@ -36,7 +36,7 @@ class I18nTest extends TestCase
         I18n::loadTranslations();
         $this->assertEquals($this->_translations['en'], I18n::_('en'), 'browser language de');
         $this->assertEquals('0 Stunden', I18n::_('%d hours', 0), '0 hours in German');
-        $this->assertEquals('1 Stunde',  I18n::_('%d hours', 1), '1 hour in German');
+        $this->assertEquals('1 Stunde', I18n::_('%d hours', 1), '1 hour in German');
         $this->assertEquals('2 Stunden', I18n::_('%d hours', 2), '2 hours in German');
     }
 
@@ -46,7 +46,7 @@ class I18nTest extends TestCase
         I18n::loadTranslations();
         $this->assertEquals($this->_translations['en'], I18n::_('en'), 'browser language de');
         $this->assertEquals('0 Stunden', I18n::_('%d hours', 0), '0 hours in German');
-        $this->assertEquals('1 Stunde',  I18n::_('%d hours', 1), '1 hour in German');
+        $this->assertEquals('1 Stunde', I18n::_('%d hours', 1), '1 hour in German');
         $this->assertEquals('2 Stunden', I18n::_('%d hours', 2), '2 hours in German');
     }
 
@@ -55,8 +55,8 @@ class I18nTest extends TestCase
         $_SERVER['HTTP_ACCEPT_LANGUAGE'] = 'fr-CH,fr;q=0.8,en-GB;q=0.6,en-US;q=0.4,en;q=0.2,de;q=0.0';
         I18n::loadTranslations();
         $this->assertEquals('fr', I18n::_('en'), 'browser language fr');
-        $this->assertEquals('0 heure',  I18n::_('%d hours', 0), '0 hours in French');
-        $this->assertEquals('1 heure',  I18n::_('%d hours', 1), '1 hour in French');
+        $this->assertEquals('0 heure', I18n::_('%d hours', 0), '0 hours in French');
+        $this->assertEquals('1 heure', I18n::_('%d hours', 1), '1 hour in French');
         $this->assertEquals('2 heures', I18n::_('%d hours', 2), '2 hours in French');
     }
 
@@ -65,8 +65,8 @@ class I18nTest extends TestCase
         $_SERVER['HTTP_ACCEPT_LANGUAGE'] = 'no;q=0.8,en-GB;q=0.6,en-US;q=0.4,en;q=0.2';
         I18n::loadTranslations();
         $this->assertEquals('no', I18n::_('en'), 'browser language no');
-        $this->assertEquals('0 timer',  I18n::_('%d hours', 0), '0 hours in Norwegian');
-        $this->assertEquals('1 time',  I18n::_('%d hours', 1), '1 hour in Norwegian');
+        $this->assertEquals('0 timer', I18n::_('%d hours', 0), '0 hours in Norwegian');
+        $this->assertEquals('1 time', I18n::_('%d hours', 1), '1 hour in Norwegian');
         $this->assertEquals('2 timer', I18n::_('%d hours', 2), '2 hours in Norwegian');
     }
 
@@ -75,8 +75,8 @@ class I18nTest extends TestCase
         $_SERVER['HTTP_ACCEPT_LANGUAGE'] = 'oc;q=0.8,en-GB;q=0.6,en-US;q=0.4,en;q=0.2';
         I18n::loadTranslations();
         $this->assertEquals('oc', I18n::_('en'), 'browser language oc');
-        $this->assertEquals('0 ora',  I18n::_('%d hours', 0), '0 hours in Occitan');
-        $this->assertEquals('1 ora',  I18n::_('%d hours', 1), '1 hour in Occitan');
+        $this->assertEquals('0 ora', I18n::_('%d hours', 0), '0 hours in Occitan');
+        $this->assertEquals('1 ora', I18n::_('%d hours', 1), '1 hour in Occitan');
         $this->assertEquals('2 oras', I18n::_('%d hours', 2), '2 hours in Occitan');
     }
 
@@ -85,8 +85,8 @@ class I18nTest extends TestCase
         $_SERVER['HTTP_ACCEPT_LANGUAGE'] = 'zh;q=0.8,en-GB;q=0.6,en-US;q=0.4,en;q=0.2';
         I18n::loadTranslations();
         $this->assertEquals('zh', I18n::_('en'), 'browser language zh');
-        $this->assertEquals('0 小时',  I18n::_('%d hours', 0), '0 hours in Chinese');
-        $this->assertEquals('1 小时',  I18n::_('%d hours', 1), '1 hour in Chinese');
+        $this->assertEquals('0 小时', I18n::_('%d hours', 0), '0 hours in Chinese');
+        $this->assertEquals('1 小时', I18n::_('%d hours', 1), '1 hour in Chinese');
         $this->assertEquals('2 小时', I18n::_('%d hours', 2), '2 hours in Chinese');
     }
 
@@ -99,10 +99,10 @@ class I18nTest extends TestCase
         $this->assertEquals('2 godzina', I18n::_('%d hours', 2), '2 hours in Polish');
         $this->assertEquals('12 godzinę', I18n::_('%d hours', 12), '12 hours in Polish');
         $this->assertEquals('22 godzina', I18n::_('%d hours', 22), '22 hours in Polish');
-        $this->assertEquals('1 minut',  I18n::_('%d minutes', 1), '1 minute in Polish');
-        $this->assertEquals('3 minut',  I18n::_('%d minutes', 3), '3 minutes in Polish');
-        $this->assertEquals('13 minut',  I18n::_('%d minutes', 13), '13 minutes in Polish');
-        $this->assertEquals('23 minut',  I18n::_('%d minutes', 23), '23 minutes in Polish');
+        $this->assertEquals('1 minut', I18n::_('%d minutes', 1), '1 minute in Polish');
+        $this->assertEquals('3 minut', I18n::_('%d minutes', 3), '3 minutes in Polish');
+        $this->assertEquals('13 minut', I18n::_('%d minutes', 13), '13 minutes in Polish');
+        $this->assertEquals('23 minut', I18n::_('%d minutes', 23), '23 minutes in Polish');
     }
 
     public function testBrowserLanguageRuDetection()
@@ -110,10 +110,10 @@ class I18nTest extends TestCase
         $_SERVER['HTTP_ACCEPT_LANGUAGE'] = 'ru;q=0.8,en-GB;q=0.6,en-US;q=0.4,en;q=0.2';
         I18n::loadTranslations();
         $this->assertEquals('ru', I18n::_('en'), 'browser language ru');
-        $this->assertEquals('1 минуту',  I18n::_('%d minutes', 1), '1 minute in Russian');
-        $this->assertEquals('3 минуты',  I18n::_('%d minutes', 3), '3 minutes in Russian');
-        $this->assertEquals('10 минут',  I18n::_('%d minutes', 10), '10 minutes in Russian');
-        $this->assertEquals('21 минуту',  I18n::_('%d minutes', 21), '21 minutes in Russian');
+        $this->assertEquals('1 минуту', I18n::_('%d minutes', 1), '1 minute in Russian');
+        $this->assertEquals('3 минуты', I18n::_('%d minutes', 3), '3 minutes in Russian');
+        $this->assertEquals('10 минут', I18n::_('%d minutes', 10), '10 minutes in Russian');
+        $this->assertEquals('21 минуту', I18n::_('%d minutes', 21), '21 minutes in Russian');
     }
 
     public function testBrowserLanguageSlDetection()
@@ -121,14 +121,14 @@ class I18nTest extends TestCase
         $_SERVER['HTTP_ACCEPT_LANGUAGE'] = 'sl;q=0.8,en-GB;q=0.6,en-US;q=0.4,en;q=0.2';
         I18n::loadTranslations();
         $this->assertEquals('sl', I18n::_('en'), 'browser language sl');
-        $this->assertEquals('0 ura',  I18n::_('%d hours', 0), '0 hours in Slowene');
-        $this->assertEquals('1 uri',  I18n::_('%d hours', 1), '1 hour in Slowene');
+        $this->assertEquals('0 ura', I18n::_('%d hours', 0), '0 hours in Slowene');
+        $this->assertEquals('1 uri', I18n::_('%d hours', 1), '1 hour in Slowene');
         $this->assertEquals('2 ure', I18n::_('%d hours', 2), '2 hours in Slowene');
-        $this->assertEquals('3 ur',  I18n::_('%d hours', 3), '3 hours in Slowene');
-        $this->assertEquals('11 ura',  I18n::_('%d hours', 11), '11 hours in Slowene');
-        $this->assertEquals('101 uri',  I18n::_('%d hours', 101), '101 hours in Slowene');
+        $this->assertEquals('3 ur', I18n::_('%d hours', 3), '3 hours in Slowene');
+        $this->assertEquals('11 ura', I18n::_('%d hours', 11), '11 hours in Slowene');
+        $this->assertEquals('101 uri', I18n::_('%d hours', 101), '101 hours in Slowene');
         $this->assertEquals('102 ure', I18n::_('%d hours', 102), '102 hours in Slowene');
-        $this->assertEquals('104 ur',  I18n::_('%d hours', 104), '104 hours in Slowene');
+        $this->assertEquals('104 ur', I18n::_('%d hours', 104), '104 hours in Slowene');
     }
 
     public function testBrowserLanguageCsDetection()
@@ -138,8 +138,8 @@ class I18nTest extends TestCase
         $this->assertEquals('cs', I18n::_('en'), 'browser language cs');
         $this->assertEquals('1 hodina', I18n::_('%d hours', 1), '1 hour in Czech');
         $this->assertEquals('2 hodiny', I18n::_('%d hours', 2), '2 hours in Czech');
-        $this->assertEquals('5 minut',  I18n::_('%d minutes', 5), '5 minutes in Czech');
-        $this->assertEquals('14 minut',  I18n::_('%d minutes', 14), '14 minutes in Czech');
+        $this->assertEquals('5 minut', I18n::_('%d minutes', 5), '5 minutes in Czech');
+        $this->assertEquals('14 minut', I18n::_('%d minutes', 14), '14 minutes in Czech');
     }
 
     public function testBrowserLanguageAnyDetection()
@@ -169,8 +169,8 @@ class I18nTest extends TestCase
 
     public function testMessageIdsExistInAllLanguages()
     {
-        $messageIds = array();
-        $languages  = array();
+        $messageIds = [];
+        $languages  = [];
         $dir        = dir(PATH . 'i18n');
         while (false !== ($file = $dir->read())) {
             if (strlen($file) === 7) {

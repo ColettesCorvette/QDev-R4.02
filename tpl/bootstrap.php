@@ -1,5 +1,6 @@
 <?php
 use PrivateBin\I18n;
+
 $isCpct = substr($template, 9, 8) === '-compact';
 $isDark = substr($template, 9, 5) === '-dark';
 $isPage = substr($template, -5) === '-page';
@@ -15,7 +16,7 @@ $isPage = substr($template, -5) === '-page';
 		<title><?php echo I18n::_($NAME); ?></title>
 <?php
 if (!$isDark) :
-?>
+    ?>
 		<link type="text/css" rel="stylesheet" href="css/bootstrap/bootstrap-3.4.1.css" />
 <?php
 endif;
@@ -23,7 +24,7 @@ endif;
 		<link type="text/css" rel="stylesheet" href="css/bootstrap/bootstrap-theme-3.4.1.css" />
 <?php
 if ($isDark) :
-?>
+    ?>
 		<link type="text/css" rel="stylesheet" href="css/bootstrap/darkstrap-0.9.3.css" />
 <?php
 endif;
@@ -31,26 +32,26 @@ endif;
 		<link type="text/css" rel="stylesheet" href="css/bootstrap/privatebin.css?<?php echo rawurlencode($VERSION); ?>" />
 <?php
 if ($SYNTAXHIGHLIGHTING) :
-?>
+    ?>
 		<link type="text/css" rel="stylesheet" href="css/prettify/prettify.css?<?php echo rawurlencode($VERSION); ?>" />
 <?php
-    if (strlen($SYNTAXHIGHLIGHTINGTHEME)) :
-?>
+        if (strlen($SYNTAXHIGHLIGHTINGTHEME)) :
+            ?>
 		<link type="text/css" rel="stylesheet" href="css/prettify/<?php echo rawurlencode($SYNTAXHIGHLIGHTINGTHEME); ?>.css?<?php echo rawurlencode($VERSION); ?>" />
 <?php
-    endif;
+        endif;
 endif;
 ?>
 		<noscript><link type="text/css" rel="stylesheet" href="css/noscript.css" /></noscript>
 		<script type="text/javascript" data-cfasync="false" src="js/jquery-3.6.1.js" crossorigin="anonymous"></script>
 <?php
 if ($QRCODE) :
-?>
+    ?>
 		<script async type="text/javascript" data-cfasync="false" src="js/kjua-0.9.0.js" crossorigin="anonymous"></script>
 <?php
 endif;
 if ($ZEROBINCOMPATIBILITY) :
-?>
+    ?>
 		<script type="text/javascript" data-cfasync="false" src="js/base64-1.7.js" crossorigin="anonymous"></script>
 <?php
 endif;
@@ -61,12 +62,12 @@ endif;
 		<script type="text/javascript" data-cfasync="false" src="js/bootstrap-3.4.1.js" crossorigin="anonymous"></script>
 <?php
 if ($SYNTAXHIGHLIGHTING) :
-?>
+    ?>
 		<script type="text/javascript" data-cfasync="false" src="js/prettify.js?<?php echo rawurlencode($VERSION); ?>" crossorigin="anonymous"></script>
 <?php
 endif;
 if ($MARKDOWN) :
-?>
+    ?>
 		<script type="text/javascript" data-cfasync="false" src="js/showdown-2.1.0.js" crossorigin="anonymous"></script>
 <?php
 endif;
@@ -97,7 +98,7 @@ endif;
 		<meta property="og:image:height" content="180" />
 	</head>
 	<body role="document" data-compression="<?php echo rawurlencode($COMPRESSION); ?>"<?php
-$class = array();
+$class = [];
 if ($isCpct) {
     $class[] = 'navbar-spacing';
 }
@@ -125,7 +126,7 @@ if (count($class)) {
 		</div>
 <?php
 if ($QRCODE) :
-?>
+    ?>
 		<div id="qrcodemodal" tabindex="-1" class="modal fade" aria-labelledby="qrcodemodalTitle" role="dialog" aria-hidden="true">
 			<div class="modal-dialog" role="document">
 				<div class="modal-content">
@@ -169,7 +170,7 @@ endif;
 		</div>
 		<nav class="navbar navbar-<?php echo $isDark ? 'inverse' : 'default'; ?> navbar-<?php echo $isCpct ? 'fixed' : 'static'; ?>-top"><?php
 if ($isCpct) :
-?><div class="container"><?php
+    ?><div class="container"><?php
 endif;
 ?>
 			<div class="navbar-header">
@@ -197,11 +198,11 @@ endif;
 					<li>
 <?php
 if ($isPage) :
-?>
+    ?>
 						<button id="sendbutton" type="button" class="hidden btn btn-<?php echo $isDark ? 'warning' : 'primary'; ?> navbar-btn">
 							<span class="glyphicon glyphicon-upload" aria-hidden="true"></span> <?php echo I18n::_('Send'), PHP_EOL;
 else :
-?>
+    ?>
 						<button id="newbutton" type="button" class="hidden btn btn-<?php echo $isDark ? 'warning' : 'default'; ?> navbar-btn">
 							<span class="glyphicon glyphicon-file" aria-hidden="true"></span> <?php echo I18n::_('New'), PHP_EOL;
 endif;
@@ -221,7 +222,7 @@ endif;
 						</button>
 <?php
 if ($QRCODE) :
-?>
+    ?>
 						<button id="qrcodelink" type="button" data-toggle="modal" data-target="#qrcodemodal" class="hidden btn btn-<?php echo $isDark ? 'warning' : 'default'; ?> navbar-btn">
 							<span class="glyphicon glyphicon-qrcode" aria-hidden="true"></span> <?php echo I18n::_('QR code'), PHP_EOL; ?>
 						</button>
@@ -233,12 +234,12 @@ endif;
 						<select id="pasteExpiration" name="pasteExpiration" class="hidden">
 <?php
 foreach ($EXPIRE as $key => $value) :
-?>
+    ?>
 							<option value="<?php echo $key; ?>"<?php
-    if ($key == $EXPIREDEFAULT) :
-?> selected="selected"<?php
-    endif;
-?>><?php echo $value; ?></option>
+        if ($key == $EXPIREDEFAULT) :
+            ?> selected="selected"<?php
+        endif;
+    ?>><?php echo $value; ?></option>
 <?php
 endforeach;
 ?>
@@ -247,7 +248,7 @@ endforeach;
 						<ul class="dropdown-menu">
 <?php
 foreach ($EXPIRE as $key => $value) :
-?>
+    ?>
 							<li>
 								<a href="#" data-expiration="<?php echo $key; ?>">
 									<?php echo $value, PHP_EOL; ?>
@@ -260,36 +261,36 @@ endforeach;
 					</li>
 <?php
 if ($isCpct) :
-?>
+    ?>
 					<li class="dropdown">
 						<a id="formatter" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><?php echo I18n::_('Options'); ?> <span class="caret"></span></a>
 						<ul class="dropdown-menu">
 							<li id="burnafterreadingoption" class="checkbox hidden">
 								<label>
 									<input type="checkbox" id="burnafterreading" name="burnafterreading"<?php
-    if ($BURNAFTERREADINGSELECTED) :
-?> checked="checked"<?php
-    endif;
-?> />
+        if ($BURNAFTERREADINGSELECTED) :
+            ?> checked="checked"<?php
+        endif;
+    ?> />
 									<?php echo I18n::_('Burn after reading'), PHP_EOL; ?>
 								</label>
 							</li>
 <?php
-    if ($DISCUSSION) :
-?>
+        if ($DISCUSSION) :
+            ?>
 							<li id="opendiscussionoption" class="checkbox hidden">
 								<label>
 									<input type="checkbox" id="opendiscussion" name="opendiscussion"<?php
-        if ($OPENDISCUSSION) :
-?> checked="checked"<?php
-        endif;
-?> />
+                    if ($OPENDISCUSSION) :
+                        ?> checked="checked"<?php
+                    endif;
+            ?> />
 									<?php echo I18n::_('Open discussion'), PHP_EOL; ?>
 								</label>
 							</li>
 <?php
-    endif;
-?>
+        endif;
+    ?>
 							<li role="separator" class="divider"></li>
 							<li>
 								<div>
@@ -297,41 +298,41 @@ if ($isCpct) :
 								</div>
 							</li>
 <?php
-    foreach ($FORMATTER as $key => $value) :
-?>
+        foreach ($FORMATTER as $key => $value) :
+            ?>
 							<li>
 								<a href="#" data-format="<?php echo $key; ?>">
 									<?php echo $value, PHP_EOL; ?>
 								</a>
 							</li>
 <?php
-    endforeach;
-?>
+        endforeach;
+    ?>
 						</ul>
 						<select id="pasteFormatter" name="pasteFormatter" class="hidden">
 <?php
-    foreach ($FORMATTER as $key => $value) :
-?>
+        foreach ($FORMATTER as $key => $value) :
+            ?>
 							<option value="<?php echo $key; ?>"<?php
-        if ($key == $FORMATTERDEFAULT) :
-?> selected="selected"<?php
-        endif;
-?>><?php echo $value; ?></option>
+                    if ($key == $FORMATTERDEFAULT) :
+                        ?> selected="selected"<?php
+                    endif;
+            ?>><?php echo $value; ?></option>
 <?php
-    endforeach;
-?>
+        endforeach;
+    ?>
 						</select>
 					</li>
 <?php
 else :
-?>
+    ?>
 					<li>
 						<div id="burnafterreadingoption" class="navbar-text checkbox hidden">
 							<label>
 								<input type="checkbox" id="burnafterreading" name="burnafterreading"<?php
-    if ($BURNAFTERREADINGSELECTED) :
-?> checked="checked"<?php
-    endif;
+        if ($BURNAFTERREADINGSELECTED) :
+            ?> checked="checked"<?php
+        endif;
 ?> />
 								<?php echo I18n::_('Burn after reading'), PHP_EOL; ?>
 							</label>
@@ -339,15 +340,15 @@ else :
 					</li>
 <?php
     if ($DISCUSSION) :
-?>
+        ?>
 					<li>
 						<div id="opendiscussionoption" class="navbar-text checkbox hidden">
 							<label>
 								<input type="checkbox" id="opendiscussion" name="opendiscussion"<?php
-        if ($OPENDISCUSSION) :
-?> checked="checked"<?php
-        endif;
-?> />
+                if ($OPENDISCUSSION) :
+                    ?> checked="checked"<?php
+                endif;
+        ?> />
 								<?php echo I18n::_('Open discussion'), PHP_EOL; ?>
 							</label>
 						</div>
@@ -356,7 +357,7 @@ else :
     endif;
 endif;
 if ($PASSWORD) :
-?>
+    ?>
 					<li>
 						<div id="password" class="navbar-form hidden">
 							<input type="password" id="passwordinput" placeholder="<?php echo I18n::_('Password (recommended)'); ?>" class="form-control" size="23" />
@@ -365,7 +366,7 @@ if ($PASSWORD) :
 <?php
 endif;
 if ($FILEUPLOAD) :
-?>
+    ?>
 					<li id="attach" class="hidden dropdown">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><?php echo I18n::_('Attach a file'); ?> <span class="caret"></span></a>
 						<ul class="dropdown-menu">
@@ -386,34 +387,34 @@ if ($FILEUPLOAD) :
 <?php
 endif;
 if (!$isCpct) :
-?>
+    ?>
 					<li class="dropdown">
 						<select id="pasteFormatter" name="pasteFormatter" class="hidden">
 <?php
-    foreach ($FORMATTER as $key => $value) :
-?>
+        foreach ($FORMATTER as $key => $value) :
+            ?>
 							<option value="<?php echo $key; ?>"<?php
-        if ($key == $FORMATTERDEFAULT) :
-?> selected="selected"<?php
-        endif;
-?>><?php echo $value; ?></option>
+                    if ($key == $FORMATTERDEFAULT) :
+                        ?> selected="selected"<?php
+                    endif;
+            ?>><?php echo $value; ?></option>
 <?php
-    endforeach;
-?>
+        endforeach;
+    ?>
 						</select>
 						<a id="formatter" href="#" class="hidden dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><?php echo I18n::_('Format'); ?>: <span id="pasteFormatterDisplay"><?php echo $FORMATTER[$FORMATTERDEFAULT]; ?></span> <span class="caret"></span></a>
 						<ul class="dropdown-menu">
 <?php
-    foreach ($FORMATTER as $key => $value) :
-?>
+        foreach ($FORMATTER as $key => $value) :
+            ?>
 							<li>
 								<a href="#" data-format="<?php echo $key; ?>">
 									<?php echo $value, PHP_EOL; ?>
 								</a>
 							</li>
 <?php
-    endforeach;
-?>
+        endforeach;
+    ?>
 						</ul>
 					</li>
 <?php
@@ -423,21 +424,21 @@ endif;
 				<ul class="nav navbar-nav pull-right">
 <?php
 if (strlen($LANGUAGESELECTION)) :
-?>
+    ?>
 					<li id="language" class="dropdown">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-flag" aria-hidden="true"></span> <?php echo $LANGUAGES[$LANGUAGESELECTION][0]; ?> <span class="caret"></span></a>
 						<ul class="dropdown-menu dropdown-menu-right">
 <?php
-    foreach ($LANGUAGES as $key => $value) :
-?>
+        foreach ($LANGUAGES as $key => $value) :
+            ?>
 							<li>
 								<a href="#" data-lang="<?php echo $key; ?>">
 									<?php echo $value[0]; ?> (<?php echo $value[1]; ?>)
 								</a>
 							</li>
 <?php
-    endforeach;
-?>
+        endforeach;
+    ?>
 						</ul>
 					</li>
 <?php
@@ -447,14 +448,14 @@ endif;
 			</div>
 		<?php
 if ($isCpct) :
-?></div><?php
+    ?></div><?php
 endif;
 ?></nav>
 		<main>
 			<section class="container">
 <?php
 if (strlen($NOTICE)) :
-?>
+    ?>
 				<div role="alert" class="alert alert-info">
 					<span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
 					<?php echo I18n::encode($NOTICE), PHP_EOL; ?>
@@ -467,7 +468,7 @@ endif;
 				</div>
 <?php
 if ($FILEUPLOAD) :
-?>
+    ?>
 				<div id="attachment" role="alert" class="hidden alert alert-info">
 					<span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span>
 					<a class="alert-link"><?php echo I18n::_('Download attachment'), PHP_EOL; ?></a>
@@ -499,7 +500,7 @@ endif;
 				</div>
 <?php
 if ($HTTPWARNING) :
-?>
+    ?>
 				<div id="httpnotice" role="alert" class="hidden alert alert-danger">
 					<span class="glyphicon glyphicon-alert" aria-hidden="true"></span>
 					<?php echo I18n::_('This website is using an insecure connection! Please only use it for testing.'), PHP_EOL; ?><br />
@@ -520,7 +521,7 @@ endif;
 					</div>
 <?php
 if (strlen($URLSHORTENER)) :
-?>
+    ?>
 					<p>
 						<button id="shortenbutton" data-shortener="<?php echo I18n::encode($URLSHORTENER); ?>" type="button" class="btn btn-<?php echo $isDark ? 'warning' : 'primary'; ?> btn-block">
 						<span class="glyphicon glyphicon-send" aria-hidden="true"></span> <?php echo I18n::_('Shorten URL'), PHP_EOL; ?>
@@ -540,11 +541,11 @@ endif;
 					<li role="presentation" class="pull-right">
 <?php
 if ($isPage) :
-?>
+    ?>
 						<button id="newbutton" type="button" class="reloadlink hidden btn btn-<?php echo $isDark ? 'warning' : 'default'; ?>">
 							<span class="glyphicon glyphicon-file" aria-hidden="true"></span> <?php echo I18n::_('New'), PHP_EOL;
 else :
-?>
+    ?>
 						<button id="sendbutton" type="button" class="hidden btn btn-<?php echo $isDark ? 'warning' : 'primary'; ?>">
 							<span class="glyphicon glyphicon-upload" aria-hidden="true"></span> <?php echo I18n::_('Send'), PHP_EOL;
 endif;
@@ -583,19 +584,23 @@ endif;
 					<p class="col-md-1 col-xs-4 text-center"><?php echo $VERSION; ?></p>
 					<p id="aboutbox" class="col-md-6 col-xs-12">
 						<?php echo sprintf(
-                            I18n::_('%s is a minimalist, open source online pastebin where the server has zero knowledge of pasted data. Data is encrypted/decrypted %sin the browser%s using 256 bits AES.',
-                                I18n::_($NAME),
-                                '%s', '%s'
-                            ),
-                            '<i>', '</i>'), ' ', $INFO, PHP_EOL;
-                        ?>
+						    I18n::_(
+						        '%s is a minimalist, open source online pastebin where the server has zero knowledge of pasted data. Data is encrypted/decrypted %sin the browser%s using 256 bits AES.',
+						        I18n::_($NAME),
+						        '%s',
+						        '%s'
+						    ),
+						    '<i>',
+						    '</i>'
+						), ' ', $INFO, PHP_EOL;
+?>
 					</p>
 				</div>
 			</footer>
 		</main>
 <?php
 if ($DISCUSSION) :
-?>
+    ?>
 		<div id="serverdata" class="hidden" aria-hidden="true">
 			<div id="templates">
 				<article id="commenttemplate" class="comment"><div class="commentmeta"><span class="nickname">name</span><span class="commentdate">0000-00-00</span></div><div class="commentdata">c</div><button class="btn btn-default btn-sm"><?php echo I18n::_('Reply'); ?></button></article>
@@ -608,7 +613,7 @@ endif;
 ?>
 <?php
 if ($FILEUPLOAD) :
-?>
+    ?>
 		<div id="dropzone" class="hidden" tabindex="-1" aria-hidden="true"></div>
 <?php
 endif;

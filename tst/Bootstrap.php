@@ -34,9 +34,9 @@ class StorageClientStub extends StorageClient
 {
     private $_config         = null;
     private $_connection     = null;
-    private static $_buckets = array();
+    private static $_buckets = [];
 
-    public function __construct(array $config = array())
+    public function __construct(array $config = [])
     {
         $this->_config     = $config;
         $this->_connection =  new ConnectionInterfaceStub();
@@ -45,7 +45,7 @@ class StorageClientStub extends StorageClient
     public function bucket($name, $userProject = false)
     {
         if (!key_exists($name, self::$_buckets)) {
-            $b                     = new BucketStub($this->_connection, $name, array(), $this);
+            $b                     = new BucketStub($this->_connection, $name, [], $this);
             self::$_buckets[$name] = $b;
         }
         return self::$_buckets[$name];
@@ -63,7 +63,7 @@ class StorageClientStub extends StorageClient
         }
     }
 
-    public function buckets(array $options = array())
+    public function buckets(array $options = [])
     {
         throw new BadMethodCallException('not supported by this stub');
     }
@@ -78,7 +78,7 @@ class StorageClientStub extends StorageClient
         throw new BadMethodCallException('not supported by this stub');
     }
 
-    public function signedUrlUploader($uri, $data, array $options = array())
+    public function signedUrlUploader($uri, $data, array $options = [])
     {
         throw new BadMethodCallException('not supported by this stub');
     }
@@ -88,32 +88,32 @@ class StorageClientStub extends StorageClient
         throw new BadMethodCallException('not supported by this stub');
     }
 
-    public function getServiceAccount(array $options = array())
+    public function getServiceAccount(array $options = [])
     {
         throw new BadMethodCallException('not supported by this stub');
     }
 
-    public function hmacKeys(array $options = array())
+    public function hmacKeys(array $options = [])
     {
         throw new BadMethodCallException('not supported by this stub');
     }
 
-    public function hmacKey($accessId, $projectId = null, array $metadata = array())
+    public function hmacKey($accessId, $projectId = null, array $metadata = [])
     {
         throw new BadMethodCallException('not supported by this stub');
     }
 
-    public function createHmacKey($serviceAccountEmail, array $options = array())
+    public function createHmacKey($serviceAccountEmail, array $options = [])
     {
         throw new BadMethodCallException('not supported by this stub');
     }
 
-    public function createBucket($name, array $options = array())
+    public function createBucket($name, array $options = [])
     {
         if (key_exists($name, self::$_buckets)) {
             throw new BadRequestException('already exists');
         }
-        $b                     = new BucketStub($this->_connection, $name, array(), $this);
+        $b                     = new BucketStub($this->_connection, $name, [], $this);
         self::$_buckets[$name] = $b;
         return $b;
     }
@@ -130,12 +130,12 @@ class BucketStub extends Bucket
     private $_connection;
     private $_client;
 
-    public function __construct(ConnectionInterface $connection, $name, array $info = array(), $client = null)
+    public function __construct(ConnectionInterface $connection, $name, array $info = [], $client = null)
     {
         $this->_name       = $name;
         $this->_info       = $info;
         $this->_connection = $connection;
-        $this->_objects    = array();
+        $this->_objects    = [];
         $this->_client     = $client;
     }
 
@@ -149,12 +149,12 @@ class BucketStub extends Bucket
         throw new BadMethodCallException('not supported by this stub');
     }
 
-    public function exists(array $options = array())
+    public function exists(array $options = [])
     {
         return true;
     }
 
-    public function upload($data, array $options = array())
+    public function upload($data, array $options = [])
     {
         if (!is_string($data) || !key_exists('name', $options)) {
             throw new BadMethodCallException('not supported by this stub');
@@ -167,22 +167,22 @@ class BucketStub extends Bucket
         $o->setData($data);
     }
 
-    public function uploadAsync($data, array $options = array())
+    public function uploadAsync($data, array $options = [])
     {
         throw new BadMethodCallException('not supported by this stub');
     }
 
-    public function getResumableUploader($data, array $options = array())
+    public function getResumableUploader($data, array $options = [])
     {
         throw new BadMethodCallException('not supported by this stub');
     }
 
-    public function getStreamableUploader($data, array $options = array())
+    public function getStreamableUploader($data, array $options = [])
     {
         throw new BadMethodCallException('not supported by this stub');
     }
 
-    public function object($name, array $options = array())
+    public function object($name, array $options = [])
     {
         if (key_exists($name, $this->_objects)) {
             return $this->_objects[$name];
@@ -191,7 +191,7 @@ class BucketStub extends Bucket
         }
     }
 
-    public function objects(array $options = array())
+    public function objects(array $options = [])
     {
         $prefix = key_exists('prefix', $options) ? $options['prefix'] : '';
 
@@ -203,7 +203,7 @@ class BucketStub extends Bucket
         );
     }
 
-    public function createNotification($topic, array $options = array())
+    public function createNotification($topic, array $options = [])
     {
         throw new BadMethodCallException('not supported by this stub');
     }
@@ -213,32 +213,32 @@ class BucketStub extends Bucket
         throw new BadMethodCallException('not supported by this stub');
     }
 
-    public function notifications(array $options = array())
+    public function notifications(array $options = [])
     {
         throw new BadMethodCallException('not supported by this stub');
     }
 
-    public function delete(array $options = array())
+    public function delete(array $options = [])
     {
         $this->_client->deleteBucket($this->_name);
     }
 
-    public function update(array $options = array())
+    public function update(array $options = [])
     {
         throw new BadMethodCallException('not supported by this stub');
     }
 
-    public function compose(array $sourceObjects, $name, array $options = array())
+    public function compose(array $sourceObjects, $name, array $options = [])
     {
         throw new BadMethodCallException('not supported by this stub');
     }
 
-    public function info(array $options = array())
+    public function info(array $options = [])
     {
         throw new BadMethodCallException('not supported by this stub');
     }
 
-    public function reload(array $options = array())
+    public function reload(array $options = [])
     {
         throw new BadMethodCallException('not supported by this stub');
     }
@@ -248,12 +248,12 @@ class BucketStub extends Bucket
         return $this->_name;
     }
 
-    public static function lifecycle(array $lifecycle = array())
+    public static function lifecycle(array $lifecycle = [])
     {
         throw new BadMethodCallException('not supported by this stub');
     }
 
-    public function currentLifecycle(array $options = array())
+    public function currentLifecycle(array $options = [])
     {
         throw new BadMethodCallException('not supported by this stub');
     }
@@ -268,17 +268,17 @@ class BucketStub extends Bucket
         throw new BadMethodCallException('not supported by this stub');
     }
 
-    public function lockRetentionPolicy(array $options = array())
+    public function lockRetentionPolicy(array $options = [])
     {
         throw new BadMethodCallException('not supported by this stub');
     }
 
-    public function signedUrl($expires, array $options = array())
+    public function signedUrl($expires, array $options = [])
     {
         throw new BadMethodCallException('not supported by this stub');
     }
 
-    public function generateSignedPostPolicyV4($objectName, $expires, array $options = array())
+    public function generateSignedPostPolicyV4($objectName, $expires, array $options = [])
     {
         throw new BadMethodCallException('not supported by this stub');
     }
@@ -297,7 +297,7 @@ class StorageObjectStub extends StorageObject
     private $_exists = false;
     private $_connection;
 
-    public function __construct(ConnectionInterface $connection, $name, $bucket, $generation = null, array $info = array(), $encryptionKey = null, $encryptionKeySHA256 = null)
+    public function __construct(ConnectionInterface $connection, $name, $bucket, $generation = null, array $info = [], $encryptionKey = null, $encryptionKeySHA256 = null)
     {
         $this->_name                            = $name;
         $this->_bucket                          = $bucket;
@@ -313,7 +313,7 @@ class StorageObjectStub extends StorageObject
         throw new BadMethodCallException('not supported by this stub');
     }
 
-    public function exists(array $options = array())
+    public function exists(array $options = [])
     {
         return key_exists($this->_name, $this->_bucket->_objects);
     }
@@ -321,7 +321,7 @@ class StorageObjectStub extends StorageObject
     /**
      * @throws NotFoundException
      */
-    public function delete(array $options = array())
+    public function delete(array $options = [])
     {
         if (key_exists($this->_name, $this->_bucket->_objects)) {
             unset($this->_bucket->_objects[$this->_name]);
@@ -333,7 +333,7 @@ class StorageObjectStub extends StorageObject
     /**
      * @throws NotFoundException
      */
-    public function update(array $metadata, array $options = array())
+    public function update(array $metadata, array $options = [])
     {
         if (!$this->_exists) {
             throw new NotFoundException('key ' . $this->_name . ' not found.');
@@ -341,17 +341,17 @@ class StorageObjectStub extends StorageObject
         $this->_info = $metadata;
     }
 
-    public function copy($destination, array $options = array())
+    public function copy($destination, array $options = [])
     {
         throw new BadMethodCallException('not supported by this stub');
     }
 
-    public function rewrite($destination, array $options = array())
+    public function rewrite($destination, array $options = [])
     {
         throw new BadMethodCallException('not supported by this stub');
     }
 
-    public function rename($name, array $options = array())
+    public function rename($name, array $options = [])
     {
         throw new BadMethodCallException('not supported by this stub');
     }
@@ -359,7 +359,7 @@ class StorageObjectStub extends StorageObject
     /**
      * @throws NotFoundException
      */
-    public function downloadAsString(array $options = array())
+    public function downloadAsString(array $options = [])
     {
         if (!$this->_exists) {
             throw new NotFoundException('key ' . $this->_name . ' not found.');
@@ -367,42 +367,42 @@ class StorageObjectStub extends StorageObject
         return $this->_data;
     }
 
-    public function downloadToFile($path, array $options = array())
+    public function downloadToFile($path, array $options = [])
     {
         throw new BadMethodCallException('not supported by this stub');
     }
 
-    public function downloadAsStream(array $options = array())
+    public function downloadAsStream(array $options = [])
     {
         throw new BadMethodCallException('not supported by this stub');
     }
 
-    public function downloadAsStreamAsync(array $options = array())
+    public function downloadAsStreamAsync(array $options = [])
     {
         throw new BadMethodCallException('not supported by this stub');
     }
 
-    public function signedUrl($expires, array $options = array())
+    public function signedUrl($expires, array $options = [])
     {
         throw new BadMethodCallException('not supported by this stub');
     }
 
-    public function signedUploadUrl($expires, array $options = array())
+    public function signedUploadUrl($expires, array $options = [])
     {
         throw new BadMethodCallException('not supported by this stub');
     }
 
-    public function beginSignedUploadSession(array $options = array())
+    public function beginSignedUploadSession(array $options = [])
     {
         throw new BadMethodCallException('not supported by this stub');
     }
 
-    public function info(array $options = array())
+    public function info(array $options = [])
     {
-        return key_exists('metadata',$this->_info) ? $this->_info['metadata'] : array();
+        return key_exists('metadata', $this->_info) ? $this->_info['metadata'] : [];
     }
 
-    public function reload(array $options = array())
+    public function reload(array $options = [])
     {
         throw new BadMethodCallException('not supported by this stub');
     }
@@ -438,47 +438,47 @@ class StorageObjectStub extends StorageObject
  */
 class ConnectionInterfaceStub implements ConnectionInterface
 {
-    public function deleteAcl(array $args = array())
+    public function deleteAcl(array $args = [])
     {
         throw new BadMethodCallException('not supported by this stub');
     }
 
-    public function getAcl(array $args = array())
+    public function getAcl(array $args = [])
     {
         throw new BadMethodCallException('not supported by this stub');
     }
 
-    public function listAcl(array $args = array())
+    public function listAcl(array $args = [])
     {
         throw new BadMethodCallException('not supported by this stub');
     }
 
-    public function insertAcl(array $args = array())
+    public function insertAcl(array $args = [])
     {
         throw new BadMethodCallException('not supported by this stub');
     }
 
-    public function patchAcl(array $args = array())
+    public function patchAcl(array $args = [])
     {
         throw new BadMethodCallException('not supported by this stub');
     }
 
-    public function deleteBucket(array $args = array())
+    public function deleteBucket(array $args = [])
     {
         throw new BadMethodCallException('not supported by this stub');
     }
 
-    public function getBucket(array $args = array())
+    public function getBucket(array $args = [])
     {
         throw new BadMethodCallException('not supported by this stub');
     }
 
-    public function listBuckets(array $args = array())
+    public function listBuckets(array $args = [])
     {
         throw new BadMethodCallException('not supported by this stub');
     }
 
-    public function insertBucket(array $args = array())
+    public function insertBucket(array $args = [])
     {
         throw new BadMethodCallException('not supported by this stub');
     }
@@ -498,107 +498,107 @@ class ConnectionInterfaceStub implements ConnectionInterface
         throw new BadMethodCallException('not supported by this stub');
     }
 
-    public function patchBucket(array $args = array())
+    public function patchBucket(array $args = [])
     {
         throw new BadMethodCallException('not supported by this stub');
     }
 
-    public function deleteObject(array $args = array())
+    public function deleteObject(array $args = [])
     {
         throw new BadMethodCallException('not supported by this stub');
     }
 
-    public function copyObject(array $args = array())
+    public function copyObject(array $args = [])
     {
         throw new BadMethodCallException('not supported by this stub');
     }
 
-    public function rewriteObject(array $args = array())
+    public function rewriteObject(array $args = [])
     {
         throw new BadMethodCallException('not supported by this stub');
     }
 
-    public function composeObject(array $args = array())
+    public function composeObject(array $args = [])
     {
         throw new BadMethodCallException('not supported by this stub');
     }
 
-    public function getObject(array $args = array())
+    public function getObject(array $args = [])
     {
         throw new BadMethodCallException('not supported by this stub');
     }
 
-    public function listObjects(array $args = array())
+    public function listObjects(array $args = [])
     {
         throw new BadMethodCallException('not supported by this stub');
     }
 
-    public function patchObject(array $args = array())
+    public function patchObject(array $args = [])
     {
         throw new BadMethodCallException('not supported by this stub');
     }
 
-    public function downloadObject(array $args = array())
+    public function downloadObject(array $args = [])
     {
         throw new BadMethodCallException('not supported by this stub');
     }
 
-    public function insertObject(array $args = array())
+    public function insertObject(array $args = [])
     {
         throw new BadMethodCallException('not supported by this stub');
     }
 
-    public function getNotification(array $args = array())
+    public function getNotification(array $args = [])
     {
         throw new BadMethodCallException('not supported by this stub');
     }
 
-    public function deleteNotification(array $args = array())
+    public function deleteNotification(array $args = [])
     {
         throw new BadMethodCallException('not supported by this stub');
     }
 
-    public function insertNotification(array $args = array())
+    public function insertNotification(array $args = [])
     {
         throw new BadMethodCallException('not supported by this stub');
     }
 
-    public function listNotifications(array $args = array())
+    public function listNotifications(array $args = [])
     {
         throw new BadMethodCallException('not supported by this stub');
     }
 
-    public function getServiceAccount(array $args = array())
+    public function getServiceAccount(array $args = [])
     {
         throw new BadMethodCallException('not supported by this stub');
     }
 
-    public function lockRetentionPolicy(array $args = array())
+    public function lockRetentionPolicy(array $args = [])
     {
         throw new BadMethodCallException('not supported by this stub');
     }
 
-    public function createHmacKey(array $args = array())
+    public function createHmacKey(array $args = [])
     {
         throw new BadMethodCallException('not supported by this stub');
     }
 
-    public function deleteHmacKey(array $args = array())
+    public function deleteHmacKey(array $args = [])
     {
         throw new BadMethodCallException('not supported by this stub');
     }
 
-    public function getHmacKey(array $args = array())
+    public function getHmacKey(array $args = [])
     {
         throw new BadMethodCallException('not supported by this stub');
     }
 
-    public function updateHmacKey(array $args = array())
+    public function updateHmacKey(array $args = [])
     {
         throw new BadMethodCallException('not supported by this stub');
     }
 
-    public function listHmacKeys(array $args = array())
+    public function listHmacKeys(array $args = [])
     {
         throw new BadMethodCallException('not supported by this stub');
     }
@@ -621,25 +621,25 @@ class Helper
      *
      * @var array
      */
-    private static $pasteV1 = array(
+    private static $pasteV1 = [
         'data'           => '{"iv":"EN39/wd5Nk8HAiSG2K5AsQ","v":1,"iter":1000,"ks":128,"ts":64,"mode":"ccm","adata":"","cipher":"aes","salt":"QKN1DBXe5PI","ct":"8hA83xDdXjD7K2qfmw5NdA"}',
         'attachment'     => '{"iv":"Pd4pOKWkmDTT9uPwVwd5Ag","v":1,"iter":1000,"ks":128,"ts":64,"mode":"ccm","adata":"","cipher":"aes","salt":"ZIUhFTliVz4","ct":"6nOCU3peNDclDDpFtJEBKA"}',
         'attachmentname' => '{"iv":"76MkAtOGC4oFogX/aSMxRA","v":1,"iter":1000,"ks":128,"ts":64,"mode":"ccm","adata":"","cipher":"aes","salt":"ZIUhFTliVz4","ct":"b6Ae/U1xJdsX/+lATud4sQ"}',
-        'meta'           => array(
+        'meta'           => [
             'formatter'      => 'plaintext',
             'postdate'       => 1344803344,
             'opendiscussion' => true,
-        ),
-    );
+        ],
+    ];
 
     /**
      * example paste version 2
      *
      * @var array
      */
-    private static $pasteV2 = array(
-        'adata' => array(
-            array(
+    private static $pasteV2 = [
+        'adata' => [
+            [
                 'gMSNoLOk4z0RnmsYwXZ8mw==',
                 'TZO+JWuIuxs=',
                 100000,
@@ -648,18 +648,18 @@ class Helper
                 'aes',
                 'gcm',
                 'zlib',
-            ),
+            ],
             'plaintext',
             1,
             0,
-        ),
-        'meta' => array(
+        ],
+        'meta' => [
             'expire'  => '5min',
             'created' => 1344803344,
-        ),
+        ],
         'v'  => 2,
         'ct' => 'ME5JF/YBEijp2uYMzLZozbKtWc5wfy6R59NBb7SmRig=',
-    );
+    ];
 
     /**
      * example ID of a comment
@@ -673,21 +673,21 @@ class Helper
      *
      * @var array
      */
-    private static $commentV1 = array(
+    private static $commentV1 = [
         'data' => '{"iv":"Pd4pOKWkmDTT9uPwVwd5Ag","v":1,"iter":1000,"ks":128,"ts":64,"mode":"ccm","adata":"","cipher":"aes","salt":"ZIUhFTliVz4","ct":"6nOCU3peNDclDDpFtJEBKA"}',
-        'meta' => array(
+        'meta' => [
             'nickname' => '{"iv":"76MkAtOGC4oFogX/aSMxRA","v":1,"iter":1000,"ks":128,"ts":64,"mode":"ccm","adata":"","cipher":"aes","salt":"ZIUhFTliVz4","ct":"b6Ae/U1xJdsX/+lATud4sQ"}',
             'vizhash'  => 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAIAAACQkWg2AAABGUlEQVQokWOsl5/94983CNKQMjnxaOePf98MeKwPfNjkLZ3AgARab6b9+PeNEVnDj3/ff/z7ZiHnzsDA8Pv7H2TVPJw8EAYLAwb48OaVgIgYKycLsrYv378wMDB8//qdCVMDRA9EKSsnCwRBxNsepaLboMFlyMDAICAi9uHNK24GITQ/MDAwoNhgIGMLtwGrzegaLjw5jMz9+vUdnN17uwDCQDhJgk0O07yvX9+teDX1x79v6DYIsIjgcgMaYGFgYOBg4kJx2JejkAiBxAw+PzAwMNz4dp6wDXDw4MdNNOl0rWYsNkD89OLXI/xmo9sgzatJjAYmBgYGDiauD3/ePP18nVgb4MF89+M5ZX6js293wUMpnr8KTQMAxsCJnJ30apMAAAAASUVORK5CYII=',
             'postdate' => 1344803528,
-        ),
-    );
+        ],
+    ];
 
     /**
      * JS files and their SRI hashes
      *
      * @var array
      */
-    private static $hashes = array();
+    private static $hashes = [];
 
     /**
      * get example paste ID
@@ -706,7 +706,7 @@ class Helper
      * @param  array $meta
      * @return array
      */
-    public static function getPaste($version = 2, array $meta = array())
+    public static function getPaste($version = 2, array $meta = [])
     {
         $example = self::getPasteWithAttachment($version, $meta);
         // v1 has the attachment stored in a separate property
@@ -723,7 +723,7 @@ class Helper
      * @param  array $meta
      * @return array
      */
-    public static function getPasteWithAttachment($version = 2, array $meta = array())
+    public static function getPasteWithAttachment($version = 2, array $meta = [])
     {
         $example                 = $version === 1 ? self::$pasteV1 : self::$pasteV2;
         $example['meta']['salt'] = ServerSalt::generate();
@@ -738,11 +738,11 @@ class Helper
      * @param  array $meta
      * @return array
      */
-    public static function getPastePost($version = 2, array $meta = array())
+    public static function getPastePost($version = 2, array $meta = [])
     {
         $example         = self::getPaste($version, $meta);
         if ($version == 2) {
-            $example['meta'] = array('expire' => $example['meta']['expire']);
+            $example['meta'] = ['expire' => $example['meta']['expire']];
         } else {
             unset($example['meta']['postdate']);
         }
@@ -756,7 +756,7 @@ class Helper
      * @param  array $meta
      * @return array
      */
-    public static function getPasteJson($version = 2, array $meta = array())
+    public static function getPasteJson($version = 2, array $meta = [])
     {
         return json_encode(self::getPastePost($version, $meta));
     }
@@ -778,7 +778,7 @@ class Helper
      * @param  array $meta
      * @return array
      */
-    public static function getComment($version = 2, array $meta = array())
+    public static function getComment($version = 2, array $meta = [])
     {
         $example         = $version === 1 ? self::$commentV1 : self::$pasteV2;
         if ($version === 2) {
@@ -927,7 +927,7 @@ class Helper
     public static function varExportMin($var, $return = false)
     {
         if (is_array($var)) {
-            $toImplode = array();
+            $toImplode = [];
             foreach ($var as $key => $value) {
                 $toImplode[] = var_export($key, true) . ' => ' . self::varExportMin($value, true);
             }
