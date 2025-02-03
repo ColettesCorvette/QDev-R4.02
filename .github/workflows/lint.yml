@@ -1,11 +1,11 @@
 name: Lint
 
 on:
+  push:
+    branches: [ "main" ]
   pull_request:
-    branches:
-      - main
-    paths:
-      - '**/*.php'
+    branches: [ "main" ]
+    
 jobs:
   build:
     runs-on: fedora:41
