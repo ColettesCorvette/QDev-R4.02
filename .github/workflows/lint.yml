@@ -7,7 +7,7 @@ on:
     paths:
       - '**/*.php'
 jobs:
-  lint:
+  build:
     runs-on: fedora:41
 
     steps:
