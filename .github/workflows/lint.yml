@@ -8,7 +8,7 @@ on:
       - '**/*.php'
 jobs:
   lint:
-    runs-on: fedora 41
+    runs-on: fedora:41
 
     steps:
       - name: Checkout repository
@@ -21,8 +21,9 @@ jobs:
 
       - name: Install dependencies
         run: |
-          composer install
+          make install
+          
 
-      - name: Run PHP CS Fixer
+      - name: Run linter
         run: |
-          ./vendor/bin/php-cs-fixer fix --dry-run --diff
+          make lint
