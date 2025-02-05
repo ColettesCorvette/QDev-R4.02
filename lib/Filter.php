@@ -32,6 +32,8 @@ class Filter
      * @throws Exception
      * @return string
      */
+
+    /*
     public static function formatHumanReadableTime($value, $unit)
     {
         if (!is_int($value) || !is_string($unit)) {
@@ -49,8 +51,8 @@ class Filter
         }
         return I18n::_(['%d ' . $unit, '%d ' . $unit . 's'], $value);
     }
+    */
 
-    /*
     public static function formatHumanReadableTime($time)
     {
         if (preg_match('/^(\d+) *(\w+)$/', $time, $matches) !== 1) {
@@ -68,7 +70,7 @@ class Filter
         }
         return I18n::_(['%d ' . $unit, '%d ' . $unit . 's'], (int) $matches[1]);
     }
-    */
+
 
     /**
      * format a given number of bytes in IEC 80000-13:2008 notation (localized)
