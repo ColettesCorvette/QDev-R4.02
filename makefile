@@ -13,3 +13,6 @@ lint:
 	@./vendor/bin/phpcs --extensions=php . || exit 1
 	@./vendor/bin/phpmd . ansi ruleset.xml || exit 1
 
+dev:
+	php -dxdebug.mode=debug -dxdebug.start_with_request=yes -S localhost:8080
+
